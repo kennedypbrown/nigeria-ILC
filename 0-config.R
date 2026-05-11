@@ -100,20 +100,22 @@ boxpath <- function() {
 pilot <- paste0(boxpath(), "/Pilot 2025/Data")
 scoping_encrypt<- paste0(boxpath(), "/Scoping/Data:analysis/Raw_data/Encrypted")
 scoping_notencrypt<- paste0(boxpath(), "/Scoping/Data:analysis/Raw_data/Not encrypted")
+clean<- paste0(boxpath(), "/Scoping/Data:analysis/Clean_data")
 
 #/Scoping/Data:analysis/Raw_data/Encrypted/ILC scoping waterpoint survey encrypted_WIDE.xlsx'
 
-# current data download
+# RAW
 scoping_edta <- paste0(scoping_encrypt,"/ILC scoping waterpoint survey encrypted_WIDE.xlsx")
 scoping_emedia <- paste0(scoping_encrypt,"/media")
 scoping_nedta <- paste0(scoping_notencrypt,"/ILC Scoping Waterpoint Survey_WIDE.xlsx")
 scoping_nemedia <- paste0(scoping_notencrypt,"/media")
 
 
+#Merged dataset
+merged_dta<- paste0(clean, "/cleaned_mergeddata_14Apr2026.dta")
 
 # define output folder paths
 #------------------------
-clean<- paste0(boxpath(), "/Scoping/Data::analysis/Clean_data")
 RCT_out <- paste0(boxpath(), "/Scoping/Data::analysis/Outputs")
 
 
