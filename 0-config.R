@@ -98,14 +98,15 @@ boxpath <- function() {
 # define main study data paths
 #------------------------
 pilot <- paste0(boxpath(), "/Pilot 2025/Data")
-scoping_encrypt<- paste0(boxpath(), "/Scoping/Data::analysis/Raw-data/Encrypted")
-scoping_notencrypt<- paste0(boxpath(), "/Scoping/Data::analysis/Raw-data/Not encrypted")
+scoping_encrypt<- paste0(boxpath(), "/Scoping/Data:analysis/Raw_data/Encrypted")
+scoping_notencrypt<- paste0(boxpath(), "/Scoping/Data:analysis/Raw_data/Not encrypted")
 
+#/Scoping/Data:analysis/Raw_data/Encrypted/ILC scoping waterpoint survey encrypted_WIDE.xlsx'
 
 # current data download
-scoping_edta <- paste0(scoping_encrypt,"/ILC scoping waterpoint survey encrypted_WISE.xlsx")
+scoping_edta <- paste0(scoping_encrypt,"/ILC scoping waterpoint survey encrypted_WIDE.xlsx")
 scoping_emedia <- paste0(scoping_encrypt,"/media")
-scoping_nedta <- paste0(scoping_notencrypt,"/ILC Coping Waterpoint Survey_WISE.xlsx")
+scoping_nedta <- paste0(scoping_notencrypt,"/ILC Scoping Waterpoint Survey_WIDE.xlsx")
 scoping_nemedia <- paste0(scoping_notencrypt,"/media")
 
 
