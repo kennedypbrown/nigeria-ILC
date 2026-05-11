@@ -11,7 +11,7 @@ source(paste0(here::here(),"/0-config.R"))
 unencyrpt <- read_excel(scoping_nedta)
 encrypt <- read_excel(scoping_edta)
 
-dta <- read_dta(merged_dta)
+dta <- read_dta(old_merged_dta)
 
 dta<- dta %>% 
   mutate(wp_id_type = paste0(state,community, "-", water_pt_type,"-")) %>% 
