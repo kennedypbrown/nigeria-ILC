@@ -50,7 +50,8 @@ packages <- c(#"rsurveycto",
   "dplyr",
   "gridtext",
   "geosphere",
-  "glue"
+  "glue",
+  "writexl"
 )
 
 #Install packages not yet installed
