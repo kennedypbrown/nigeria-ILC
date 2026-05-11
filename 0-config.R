@@ -112,11 +112,13 @@ scoping_nemedia <- paste0(scoping_notencrypt,"/media")
 
 
 #Merged dataset
-merged_dta<- paste0(clean, "/cleaned_mergeddata_14Apr2026.dta")
+old_merged_dta<- paste0(clean, "/cleaned_mergeddata_14Apr2026.dta")
+clean_merged_dta <- paste0(clean, "/MergedData_CLEAN.xlsx")
 
 # define output folder paths
 #------------------------
 RCT_out <- paste0(boxpath(), "/Scoping/Data::analysis/Outputs")
+clean<- paste0(boxpath(), "/Scoping/Data:analysis/Clean_data")
 
 
 
