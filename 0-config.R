@@ -102,9 +102,6 @@ scoping_notencrypt<- paste0(boxpath(), "/Scoping/Data::analysis/Raw-data/Not enc
 
 
 # current data download
-datadir = paste0(boxpath(), "/data/1-raw data/current")
-media_folder <- paste0(datadir, "/media")
-deidentified <- paste0(boxpath(), "/data/2-deidentified")
 scoping_edta <- paste0(scoping_encrypt,"/ILC scoping waterpoint survey encrypted_WISE.xlsx")
 scoping_emedia <- paste0(scoping_encrypt,"/media")
 scoping_nedta <- paste0(scoping_notencrypt,"/ILC Coping Waterpoint Survey_WISE.xlsx")
@@ -114,10 +111,17 @@ scoping_nemedia <- paste0(scoping_notencrypt,"/media")
 
 # define output folder paths
 #------------------------
-casepath = paste0(boxpath(), "/data/6-case management")
+clean<- paste0(boxpath(), "/Scoping/Data::analysis/Clean_data")
+RCT_out <- paste0(boxpath(), "/Scoping/Data::analysis/Outputs")
 
 
+
+# #------------------------
+#Adapter data analysis paths
 #------------------------
+handpump = "/Users/kennedybrown/Library/CloudStorage/Box-Box/Venturi_Design/TuriTap_Handpump_Adaptation"
+
+
 # old paths
 # #------------------------
 
