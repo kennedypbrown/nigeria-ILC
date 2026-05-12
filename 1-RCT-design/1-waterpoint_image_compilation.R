@@ -15,14 +15,14 @@ source(paste0(here::here(),"/0-config.R"))
 dta_un <- read_excel(scoping_nedta)
 dta_en<- read_excel(scoping_edta)
 
-dta <- read_dta(old_merged_dta) %>% 
+dta <- read_excel(clean_merged_dta) %>% 
   rename(encoded_picture = water_point_picture) %>% 
   left_join(dta_un %>% select(wp_id,water_point_picture), by=("wp_id")) %>% 
   left_join(dta_en %>% select(wp_id,water_point_picture), by=("wp_id")) %>% 
   mutate(
     water_point_picture = coalesce(water_point_picture.x, water_point_picture.y)
   ) %>% 
-  select(-water_point_picture.x, -water_point_picture.y)
+  select(wp_id_new, state, ward, community, water_point_picture, -water_point_picture.x, -water_point_picture.y)
 
 output<- file.path(clean, "Media")
 
@@ -65,10 +65,6 @@ walk(1:nrow(dta), function(i) {
     warning(paste("File not found in either source:", row$water_point_picture))
     return(NULL)
   }
-  dst <- file.path(folder, basename(row$water_point_picture))
-  
-  # Copy if source file exists
-  dst <- file.path(folder, basename(row$water_point_picture))
   
   
   # Rename to wp_id_new, preserving original file extension
@@ -76,6 +72,7 @@ walk(1:nrow(dta), function(i) {
   new_filename <- paste0(row$wp_id_new, ".", ext)
   dst <- file.path(folder, new_filename)
    
+  # Copy if source file exists
   file.copy(src, dst, overwrite = TRUE)
 })
 
