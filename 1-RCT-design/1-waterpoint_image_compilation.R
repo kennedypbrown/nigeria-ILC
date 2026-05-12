@@ -189,3 +189,5 @@ source_id_summary <- dta %>%
   ) %>% 
   select(contains("t_"), -contains("water"))
 
+file_name <- file.path(output, paste0("SourceID_Master.xlsx"))
+writexl::write_xlsx(source_id_summary, path = file_name)
