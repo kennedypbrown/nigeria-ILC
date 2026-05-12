@@ -1,6 +1,8 @@
 # waterpoint ID edit
 # Date: 05/11/2026
 # Author: Kennedy Brown
+# This script generates unique water point ID's based on the state, community
+# waterpoint type, and number. This is output to the merged CLEAN dataset
 #----------------
 
 library(here)
