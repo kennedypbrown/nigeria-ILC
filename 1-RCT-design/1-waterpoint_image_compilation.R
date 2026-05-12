@@ -20,9 +20,10 @@ dta <- read_excel(clean_merged_dta) %>%
   left_join(dta_un %>% select(wp_id,water_point_picture), by=("wp_id")) %>% 
   left_join(dta_en %>% select(wp_id,water_point_picture), by=("wp_id")) %>% 
   mutate(
-    water_point_picture = coalesce(water_point_picture.x, water_point_picture.y)
+    water_point_picture = coalesce(water_point_picture.x, water_point_picture.y),
+    new_photo_filename   = ifelse(!is.na(water_point_picture), paste0(wp_id_new, ".jpg"), NA)
   ) %>% 
-  select(wp_id_new, state, ward, community, enumerator, water_pt_type, water_point_picture, -water_point_picture.x, -water_point_picture.y)
+  select(wp_id_new, state, ward, community, enumerator, water_pt_type, water_point_picture, new_photo_filename, -water_point_picture.x, -water_point_picture.y)
 
 # ----------------------------------
 # WATER POINT IMAGE SUMMARY
@@ -130,5 +131,61 @@ wp_image_enumerator <- dta %>%
 # })
 
 
+  # ----------------------------------
+  # SOURCE ID ORGANIZATION FOR SURVEY
+  # ----------------------------------
+   output<- file.path(baseline_survey, "SourceID_Media")
 
+  #Create a media folder
+  if (!dir.exists(output)) {
+    dir.create(output, recursive = TRUE)}
+
+  # # Loop over each row and file into state/ward/community/type folders
+  walk(1:nrow(dta), function(i) {
+    row <- dta[i, ]
+
+  #  # Strip leading "media/" or "media\" at the start
+     photo_file <- sub("^media[\\\\/]", "", row$water_point_picture)
+  
+     # Skip if no image
+     if (is.na(photo_file) || photo_file == "") return(NULL)
+  
+     src_1 <- file.path(scoping_emedia, photo_file)
+     src_2 <- file.path(scoping_nemedia, photo_file)
+  
+     #Combine both file sources
+   src <- if (file.exists(src_1)) {
+     src_1
+    } else if (file.exists(src_2)) {
+      src_2
+    } else {
+     warning(paste("File not found in either source:", row$water_point_picture))
+     return(NULL)   }
+   
+  # Rename to wp_id_new, converting to jpg if needed
+  ext <- tools::file_ext(photo_file)
+  new_filename <- paste0(row$wp_id_new, ".jpg")
+  dst <- file.path(output, new_filename)
+  
+  if (tolower(ext) == "jpg" || tolower(ext) == "jpeg") {
+    # Already jpg, just copy
+    file.copy(src, dst, overwrite = TRUE)
+  } else {
+    # Convert to jpg using magick
+    image_read(src) %>% 
+      image_write(dst, format = "jpg")
+  }})
+  
+  
+source_id_summary <- dta %>% 
+  mutate(
+    t_list_name = "source_id",
+    t_value = row_number(),
+    t_label= wp_id_new,
+    t_label_hausa = "",
+    t_label_pidgin = "",
+    t_filter = community,
+    t_media_image = new_photo_filename
+  ) %>% 
+  select(contains("t_"), -contains("water"))
 

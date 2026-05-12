@@ -102,7 +102,6 @@ scoping_encrypt<- paste0(boxpath(), "/Scoping/Data:analysis/Raw_data/Encrypted")
 scoping_notencrypt<- paste0(boxpath(), "/Scoping/Data:analysis/Raw_data/Not encrypted")
 clean<- paste0(boxpath(), "/Scoping/Data:analysis/Clean_data")
 
-#/Scoping/Data:analysis/Raw_data/Encrypted/ILC scoping waterpoint survey encrypted_WIDE.xlsx'
 
 # RAW
 scoping_edta <- paste0(scoping_encrypt,"/ILC scoping waterpoint survey encrypted_WIDE.xlsx")
@@ -119,7 +118,8 @@ clean_merged_dta <- paste0(clean, "/MergedData_CLEAN.xlsx")
 #------------------------
 RCT_out <- paste0(boxpath(), "/Scoping/Data::analysis/Outputs")
 clean<- paste0(boxpath(), "/Scoping/Data:analysis/Clean_data")
-
+baseline<- paste0(boxpath(), "/Baseline")
+baseline_survey<- paste0(baseline, "/Surveys")
 
 
 # #------------------------
