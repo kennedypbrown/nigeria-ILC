@@ -24,6 +24,7 @@ dta <- read_excel(clean_merged_dta) %>%
     new_photo_filename   = ifelse(!is.na(water_point_picture), paste0(wp_id_new, ".jpg"), NA)
   ) %>% select(wp_id_new, state, ward, community, enumerator, water_pt_type, water_point_picture, new_photo_filename, water_pt_name, water_pt_location, water_pt_identifiers, -water_point_picture.x, -water_point_picture.y)
 
+
 # ----------------------------------
 # WATER POINT IMAGE SUMMARY
 # ----------------------------------
@@ -78,15 +79,15 @@ wp_image_enumerator <- dta %>%
 # MEDIA FILE ORGANIZATION
 # ----------------------------------
 # output<- file.path(clean, "Media")
-# 
+#
 # #Create a media folder
 # if (!dir.exists(output)) {
 #   dir.create(output, recursive = TRUE)}
-# 
+#
 # # Loop over each row and file into state/ward/community/type folders
 # walk(1:nrow(dta), function(i) {
 #   row <- dta[i, ]
-#   
+#
 #   # Build nested folder path
 #   folder <- file.path(
 #     output,
@@ -94,21 +95,21 @@ wp_image_enumerator <- dta %>%
 #     row$ward,
 #     row$community
 #   )
-#   
+#
 #   # Create folder if it doesn't exist
 #   if (!dir.exists(folder)) dir.create(folder, recursive = TRUE)
-#   
+#
 #   # Strip leading "media/" or "media\" at the start
 #   photo_file <- sub("^media[\\\\/]", "", row$water_point_picture)
-#   
+#
 #   # Skip if no image
 #   if (is.na(photo_file) || photo_file == "") return(NULL)
-# 
-#     
-#   
+#
+#
+#
 #   src_1 <- file.path(scoping_emedia, photo_file)
 #   src_2 <- file.path(scoping_nemedia, photo_file)
-#   
+#
 #   #Combine both file sources
 #   src <- if (file.exists(src_1)) {
 #     src_1
@@ -118,13 +119,13 @@ wp_image_enumerator <- dta %>%
 #     warning(paste("File not found in either source:", row$water_point_picture))
 #     return(NULL)
 #   }
-#   
-#   
+#
+#
 #   # Rename to wp_id_new, preserving original file extension
 #   ext <- tools::file_ext(photo_file)
 #   new_filename <- paste0(row$wp_id_new, ".", ext)
 #   dst <- file.path(folder, new_filename)
-#    
+#
 #   # Copy if source file exists
 #   file.copy(src, dst, overwrite = TRUE)
 # })
@@ -134,24 +135,24 @@ wp_image_enumerator <- dta %>%
   # SOURCE ID ORGANIZATION FOR SURVEY
   # ----------------------------------
 #  output<- file.path(baseline_survey, "SourceID_Media")
-  # 
+  #
   # #Create a media folder
   # if (!dir.exists(output)) {
   #   dir.create(output, recursive = TRUE)}
-  # 
+  #
   # # # Loop over each row and file into state/ward/community/type folders
   # walk(1:nrow(dta), function(i) {
   #   row <- dta[i, ]
-  # 
+  #
   # #  # Strip leading "media/" or "media\" at the start
   #    photo_file <- sub("^media[\\\\/]", "", row$water_point_picture)
-  # 
+  #
   #    # Skip if no image
   #    if (is.na(photo_file) || photo_file == "") return(NULL)
-  # 
+  #
   #    src_1 <- file.path(scoping_emedia, photo_file)
   #    src_2 <- file.path(scoping_nemedia, photo_file)
-  # 
+  #
   #    #Combine both file sources
   #  src <- if (file.exists(src_1)) {
   #    src_1
@@ -160,18 +161,18 @@ wp_image_enumerator <- dta %>%
   #   } else {
   #    warning(paste("File not found in either source:", row$water_point_picture))
   #    return(NULL)   }
-  #  
+  #
   # # Rename to wp_id_new, converting to jpg if needed
   # ext <- tools::file_ext(photo_file)
   # new_filename <- paste0(row$wp_id_new, ".jpg")
   # dst <- file.path(output, new_filename)
-  # 
+  #
   # if (tolower(ext) == "jpg" || tolower(ext) == "jpeg") {
   #   # Already jpg, just copy
   #   file.copy(src, dst, overwrite = TRUE)
   # } else {
   #   # Convert to jpg using magick
-  #   image_read(src) %>% 
+  #   image_read(src) %>%
   #     image_write(dst, format = "jpg")
   # }})
   
