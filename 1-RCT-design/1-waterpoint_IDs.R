@@ -1,4 +1,4 @@
-# waterpoint ID edit
+# Clean ID Data
 # Date: 05/11/2026
 # Author: Kennedy Brown
 # This script generates unique water point ID's based on the state, community
