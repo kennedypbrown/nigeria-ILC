@@ -101,6 +101,18 @@ pilot <- paste0(boxpath(), "/Pilot 2025/Data")
 scoping_encrypt<- paste0(boxpath(), "/Scoping/Data:analysis/Raw_data/Encrypted")
 scoping_notencrypt<- paste0(boxpath(), "/Scoping/Data:analysis/Raw_data/Not encrypted")
 clean<- paste0(boxpath(), "/Scoping/Data:analysis/Clean_data")
+baseline <- paste0(boxpath(), "/Baseline")
+baseline_communities<- paste0(baseline, "/selected_communities_all.xlsx")
+
+cr_communities<-read_excel(communities, sheet = 1) %>% 
+  mutate(state = "C")
+
+k_communities<- read_excel(communities, sheet = 2) %>% 
+  mutate(state = "K") 
+
+communities<- cr_communities %>% 
+  rbind(k_communities) %>% 
+  filter(ward != "Total")
 
 
 # RAW
