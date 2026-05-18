@@ -75,59 +75,59 @@ wp_image_enumerator <- dta %>%
 # It takes about 30-45 minutes to run, if needed to recompile we can 
 # un comment this
 
-# ----------------------------------
-# MEDIA FILE ORGANIZATION
-# ----------------------------------
- output<- file.path(clean, "Media")
-
- #Create a media folder
- if (!dir.exists(output)) {
-   dir.create(output, recursive = TRUE)}
-
- # Loop over each row and file into state/ward/community/type folders
- walk(1:nrow(dta), function(i) {
-   row <- dta[i, ]
-
-   # Build nested folder path
-   folder <- file.path(
-     output,
-     row$state,
-     row$community
-   )
-
-   # Create folder if it doesn't exist
-   if (!dir.exists(folder)) dir.create(folder, recursive = TRUE)
-
-   # Strip leading "media/" or "media\" at the start
-   photo_file <- sub("^media[\\\\/]", "", row$water_point_picture)
-
-   # Skip if no image
-   if (is.na(photo_file) || photo_file == "") return(NULL)
-
-
-
-  src_1 <- file.path(scoping_emedia, photo_file)
-  src_2 <- file.path(scoping_nemedia, photo_file)
-
-  #Combine both file sources
-  src <- if (file.exists(src_1)) {
-    src_1
-  } else if (file.exists(src_2)) {
-    src_2
-  } else {
-    warning(paste("File not found in either source:", row$water_point_picture))
-    return(NULL)
-  }
-
-
-  # Rename to wp_id_new, preserving original file extension
-  ext <- tools::file_ext(photo_file)
-  new_filename <- paste0(row$wp_id_new, ".", ext)
-  dst <- file.path(folder, new_filename)
-
-  # Copy if source file exists
-  file.copy(src, dst, overwrite = TRUE)
-})
+# # ----------------------------------
+# # MEDIA FILE ORGANIZATION
+# # ----------------------------------
+#  output<- file.path(clean, "Media")
+# 
+#  #Create a media folder
+#  if (!dir.exists(output)) {
+#    dir.create(output, recursive = TRUE)}
+# 
+#  # Loop over each row and file into state/ward/community/type folders
+#  walk(1:nrow(dta), function(i) {
+#    row <- dta[i, ]
+# 
+#    # Build nested folder path
+#    folder <- file.path(
+#      output,
+#      row$state,
+#      row$community
+#    )
+# 
+#    # Create folder if it doesn't exist
+#    if (!dir.exists(folder)) dir.create(folder, recursive = TRUE)
+# 
+#    # Strip leading "media/" or "media\" at the start
+#    photo_file <- sub("^media[\\\\/]", "", row$water_point_picture)
+# 
+#    # Skip if no image
+#    if (is.na(photo_file) || photo_file == "") return(NULL)
+# 
+# 
+# 
+#   src_1 <- file.path(scoping_emedia, photo_file)
+#   src_2 <- file.path(scoping_nemedia, photo_file)
+# 
+#   #Combine both file sources
+#   src <- if (file.exists(src_1)) {
+#     src_1
+#   } else if (file.exists(src_2)) {
+#     src_2
+#   } else {
+#     warning(paste("File not found in either source:", row$water_point_picture))
+#     return(NULL)
+#   }
+# 
+# 
+#   # Rename to wp_id_new, preserving original file extension
+#   ext <- tools::file_ext(photo_file)
+#   new_filename <- paste0(row$wp_id_new, ".", ext)
+#   dst <- file.path(folder, new_filename)
+# 
+#   # Copy if source file exists
+#   file.copy(src, dst, overwrite = TRUE)
+# })
 
 
   # ----------------------------------
