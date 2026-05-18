@@ -182,8 +182,6 @@ if (tolower(ext) == "jpg" || tolower(ext) == "jpeg") {
     image_write(dst, format = "jpg")
 }})
 
-
-
 source_id_summary <- dta %>% 
   mutate(
     list_name = "source_id",
@@ -196,10 +194,14 @@ source_id_summary <- dta %>%
     ),
     label_hausa = "",
     label_pidgin = "",
-    filter = community,
+    source = water_pt_type,
+    filter = "",
     media_image = new_photo_filename
   ) %>% 
-  select(list_name, value, label, label_hausa, label_pidgin, filter, media_image)
+  filter(!is.na(water_pt_name) | !is.na(media_image)) %>% #Check this! must have a name or an image
+  select(list_name, value, label, label_hausa, label_pidgin, filter, community, source, media_image)
+
+
 
 file_name <- file.path(baseline_survey, paste0("SourceID_Master.xlsx"))
 writexl::write_xlsx(source_id_summary, path = file_name)
