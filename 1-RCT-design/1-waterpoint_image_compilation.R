@@ -15,7 +15,7 @@ source(paste0(here::here(),"/0-config.R"))
 dta_un <- read_excel(scoping_nedta)
 dta_en<- read_excel(scoping_edta)
 
-dta <- read_excel(clean_merged_dta) %>% 
+dta_all <- read_excel(clean_merged_dta) %>% 
   rename(encoded_picture = water_point_picture) %>% 
   left_join(dta_un %>% select(wp_id,water_point_picture), by=("wp_id")) %>% 
   left_join(dta_en %>% select(wp_id,water_point_picture), by=("wp_id")) %>% 
@@ -25,6 +25,13 @@ dta <- read_excel(clean_merged_dta) %>%
   ) %>% select(wp_id_new, state, ward, community, enumerator, water_pt_type, water_point_picture, new_photo_filename, water_pt_name, water_pt_location, water_pt_identifiers, -water_point_picture.x, -water_point_picture.y)
 
 
+dta <- dta_all %>% 
+  mutate(
+    state= as.character(state),
+    ward = as.character(ward),
+    community = as.character(community)) %>% 
+  left_join (communities, by = c("state", "ward", "community")) %>% 
+  filter(!is.na(sha_upgrade_status)) #use as proxy to select only selected baseline facilities by using variable present in selected community data
 # ----------------------------------
 # WATER POINT IMAGE SUMMARY
 # ----------------------------------

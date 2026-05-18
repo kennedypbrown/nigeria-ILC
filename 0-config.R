@@ -104,11 +104,11 @@ clean<- paste0(boxpath(), "/Scoping/Data:analysis/Clean_data")
 baseline <- paste0(boxpath(), "/Baseline")
 baseline_communities<- paste0(baseline, "/selected_communities_all.xlsx")
 
-cr_communities<-read_excel(communities, sheet = 1) %>% 
+cr_communities<-read_excel(baseline_communities, sheet = 1) %>% 
   mutate(state = "C")
 
-k_communities<- read_excel(communities, sheet = 2) %>% 
-  mutate(state = "K") 
+k_communities<- read_excel(baseline_communities, sheet = 2) %>% 
+  mutate(state = "K")
 
 communities<- cr_communities %>% 
   rbind(k_communities) %>% 
