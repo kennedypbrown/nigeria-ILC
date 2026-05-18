@@ -103,17 +103,14 @@ scoping_notencrypt<- paste0(boxpath(), "/Scoping/Data:analysis/Raw_data/Not encr
 clean<- paste0(boxpath(), "/Scoping/Data:analysis/Clean_data")
 baseline <- paste0(boxpath(), "/Baseline")
 baseline_communities<- paste0(baseline, "/selected_communities_all.xlsx")
-
 cr_communities<-read_excel(baseline_communities, sheet = 1) %>% 
   mutate(state = "C")
-
 k_communities<- read_excel(baseline_communities, sheet = 2) %>% 
   mutate(state = "K")
-
 communities<- cr_communities %>% 
   rbind(k_communities) %>% 
   filter(ward != "Total")
-
+source_type <- paste0(boxpath(), "/Scoping/Surveys/Source_Allocation.gsheet")
 
 # RAW
 scoping_edta <- paste0(scoping_encrypt,"/ILC scoping waterpoint survey encrypted_WIDE.xlsx")
